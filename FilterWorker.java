@@ -5,6 +5,11 @@ public class FilterWorker extends Thread {
         this.buffer = buffer;
     }
 
+    synchronized public void filtrar() throws InterruptedException{
+        this.filtrado(buffer.read());
+    }
     
-    
+    synchronized public void filtrado(Object img){
+
+    }
 }
