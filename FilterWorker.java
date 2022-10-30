@@ -10,6 +10,6 @@ public class FilterWorker extends Thread {
     }
     
     synchronized public void filtrado(Object img){
-
+        
     }
 }
