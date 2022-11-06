@@ -20,7 +20,12 @@ public class Task implements Runnable{
         return this.j;
     }
     public int getValor(){
-        return this.valor;
+        if (this.valor > 255){
+            return 255;
+        }
+        else {
+            return this.valor;
+        }
     }
 
     public void run(){
