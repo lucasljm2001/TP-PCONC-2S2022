@@ -39,7 +39,7 @@ public class Main {
 
         Buffer buffer = new Buffer(8);
         WorkerCounter workerCounter = new WorkerCounter();
-        int threads = 8; // no se como hacer para pasar datos por linea de comandos
+        int threads = 4; // no se como hacer para pasar datos por linea de comandos
         ThreadPool pool = new ThreadPool(threads, buffer, workerCounter);
         pool.iniciar();
         for (Task task : tasks){

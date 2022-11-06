@@ -31,8 +31,7 @@ public class ThreadPool {
 
     synchronized public void stop() throws InterruptedException{
         for (int i=0; i < this.workers.length; i++) {
-            int[][] rango = new int[1][1];
-            buffer.write(new PoisonPill(rango, 0, 0));
+            buffer.write(new PoisonPill());
             workerCounter.restarThread();
         }
         workerCounter.terminarEjecucion();
