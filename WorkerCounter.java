@@ -1,5 +1,5 @@
 public class WorkerCounter {
-    int threadsProcesando;
+    int threadsProcesando = 0;
 
     synchronized public void sumarThread(){
         threadsProcesando++;
@@ -10,5 +10,9 @@ public class WorkerCounter {
             wait();
         }
         notify();
+    }
+
+    synchronized public void restarThread(){
+        threadsProcesando--;
     }
 }

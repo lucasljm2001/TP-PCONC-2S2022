@@ -1,7 +1,9 @@
-public class Task {
+public class Task implements Runnable{
     int[][] rango;
     int i;
     int j;
+    int valor = 0;
+
     int[][] filtro = {{0,1,2},{2,2,0},{0,1,2}};
     public Task(int[][] rango, int i, int j){
         this.rango = rango;
@@ -17,13 +19,15 @@ public class Task {
     public int getJ(){
         return this.j;
     }
-    public int run(){
-        int valor = 0;
+    public int getValor(){
+        return this.valor;
+    }
+
+    public void run(){
         for(int i=0; i<3; i++){
             for(int j=0; j<3; j++){
                 valor += rango[i][j] * filtro[i][j];
             }
         }
-        return valor;
     }
 }

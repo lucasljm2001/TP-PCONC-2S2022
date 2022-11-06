@@ -1,26 +1,29 @@
 
 public class Buffer {
     int N;
+    Runnable [] data;
     public Buffer(int N){
         this.N = N;
+        this.data = new Runnable [N + 1];
     }
-    private Task [] data = new Task [N +1];
+
     private int begin = 0, end = 0;
-    synchronized void write ( Task o) throws InterruptedException {
-        while ( isFull ()) { 
-            wait (); 
+    synchronized void write (Runnable o) throws InterruptedException {
+        while (isFull()) {
+            wait();
         }
-        data [ begin ] = o;
-        begin = next ( begin );
-        notifyAll ();
+        data [begin] = o;
+        begin = next(begin);
+        notifyAll();
     }
-    synchronized Task read() throws InterruptedException {
-        while ( isEmpty ()) { 
-            wait (); 
+
+    synchronized Runnable read() throws InterruptedException {
+        while (isEmpty()) { 
+            wait(); 
         }
-        Task result = data [ end ];
-        end = next ( end );
-        notifyAll ();
+        Runnable result = data[end];
+        end = next(end);
+        notifyAll();
         return result ;
     }
     private boolean isEmpty () { return begin == end ; }
