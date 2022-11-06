@@ -15,6 +15,11 @@ public class ThreadPool {
     public void iniciar(){
         for (int i = 0; i < cantidad; i++) {
             workers[i] = new FilterWorker(this.buffer);
+            workers[i].start();
         }
+    }
+
+    public void lunch(Task task) throws InterruptedException{
+        buffer.write(task);
     }
 }

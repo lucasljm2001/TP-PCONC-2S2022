@@ -4,9 +4,9 @@ public class Buffer {
     public Buffer(int N){
         this.N = N;
     }
-    private Object [] data = new Object [N +1];
+    private Task [] data = new Task [N +1];
     private int begin = 0, end = 0;
-    synchronized void write ( Object o) throws InterruptedException {
+    synchronized void write ( Task o) throws InterruptedException {
         while ( isFull ()) { 
             wait (); 
         }
@@ -14,11 +14,11 @@ public class Buffer {
         begin = next ( begin );
         notifyAll ();
     }
-    synchronized Object read () throws InterruptedException {
+    synchronized Task read() throws InterruptedException {
         while ( isEmpty ()) { 
             wait (); 
         }
-        Object result = data [ end ];
+        Task result = data [ end ];
         end = next ( end );
         notifyAll ();
         return result ;
