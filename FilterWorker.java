@@ -10,21 +10,26 @@ public class FilterWorker extends Thread {
 
     public void run(){
         while(true){
-            Task t;
             try {
-                t = (Task) buffer.read();
-                t.run();
-                ArrayList<Integer> innerArraylist = new ArrayList<Integer>();
-                innerArraylist.add(Integer.valueOf(t.getValor()));
-                innerArraylist.add(Integer.valueOf(t.getI()));
-                innerArraylist.add(Integer.valueOf(t.getJ()));
-
-                procesosLeidos.add(innerArraylist);
-                counter ++;
+                Runnable task = buffer.read();
+                if (task.getClass() == Task.class){
+                    Task t;
+                    t  = (Task) task;
+                    t.run();
+                    ArrayList<Integer> innerArraylist = new ArrayList<Integer>();
+                    innerArraylist.add(Integer.valueOf(t.getValor()));
+                    innerArraylist.add(Integer.valueOf(t.getI()));
+                    innerArraylist.add(Integer.valueOf(t.getJ()));
+   
+                    procesosLeidos.add(innerArraylist);
+                    counter ++;
+                }
+                else{
+                    task.run();
+                }
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-
         }
     }
 

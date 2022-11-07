@@ -29,12 +29,10 @@ public class ThreadPool {
         buffer.write(task);
     }
 
-    synchronized public void stop() throws InterruptedException{
+    synchronized public void loadFinishTaks() throws InterruptedException{
         for (int i=0; i < this.workers.length; i++) {
-            buffer.write(new PoisonPill());
-            workerCounter.restarThread();
+            buffer.write(new PoisonPill(workerCounter));
         }
-        workerCounter.terminarEjecucion();
     }
 
     public void mostrarResultados(){

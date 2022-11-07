@@ -45,7 +45,8 @@ public class Main {
         for (Task task : tasks){
             pool.launch(task);
         }
-        pool.stop();
+        pool.loadFinishTaks();
+        workerCounter.terminarEjecucion();
         pool.mostrarResultados();
     }
 

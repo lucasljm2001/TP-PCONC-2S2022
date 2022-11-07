@@ -9,10 +9,12 @@ public class WorkerCounter {
         while(threadsProcesando > 0){
             wait();
         }
-        notify();
     }
 
     synchronized public void restarThread(){
         threadsProcesando--;
+        if (threadsProcesando == 0){
+            notify();
+        }
     }
 }
