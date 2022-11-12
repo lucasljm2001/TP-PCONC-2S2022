@@ -1,8 +1,7 @@
 import java.awt.image.BufferedImage;
 import java.awt.image.WritableRaster;
 import java.io.File;
-import java.io.IOException;
-import java.sql.Time;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
@@ -11,14 +10,18 @@ import javax.imageio.ImageIO;
  */
 public class Main {
     public static void main(String[] args) throws Exception {
-        // File imagen = new File ("entrada.png");
-        // BufferedImage bi = ImageIO.read( imagen );
-        // WritableRaster raster = bi.getRaster();
-        // int ancho = raster . getWidth ();
-        // int alto = raster . getHeight ();
-        // int canales = raster . getNumBands ();
-        // WritableRaster raster2 = raster.createCompatibleWritableRaster(
-        // ancho , alto );
+        File imgInput = new File ("entrada.jpg");
+        BufferedImage bi = ImageIO.read(imgInput);
+        WritableRaster inputRaster = bi.getRaster();
+
+        int ancho = inputRaster.getWidth();
+        int alto = inputRaster.getHeight();
+        int canales = inputRaster.getNumBands();
+
+        WritableRaster outputRaster = inputRaster.createCompatibleWritableRaster(ancho, alto);
+
+        int cantTasks = (ancho - 2) * (alto - 2);
+
         // raster2.setPixels(0 , 0 , ancho , alto ,
         // new double[ ancho * alto * canales ]);
         // BufferedImage bi_salida = new BufferedImage (
@@ -26,14 +29,14 @@ public class Main {
         // File outputfile = new File ("salida.jpg" );
         // ImageIO.write(bi_salida, "jpg" , outputfile );
         
-
-        int[][] imagen = {{3,3,2,1,0},{0,0,1,3,1},{3,1,2,2,3},{2,0,0,2,2},{2,0,0,0,1}};
-        Task[] tasks = new Task[9]; // el valor 9 sale del (ancho - 2) * (altura - 2)
+        Task[] tasks = new Task[(ancho - 2) * (alto - 2)];
         int counter = 0;
-        for(int i=0; i<3; i++){
-            for(int j=0; j<3; j++){ // el 3 es el (ancho - 2)
-                tasks[counter] = new Task(dividirMatriz(imagen, i, j), i, j);
-                counter++;
+        for (int k = 0; k<canales; k++){
+            for(int i=0; i<3; i++){
+                for(int j=0; j<3; j++){ // el 3 es el (ancho - 2)
+                    tasks[counter] = new Task(dividirMatriz(inputRaster, i, j), i, j, inputRaster, outputRaster);
+                    counter++;
+                }
             }
         }
 
@@ -50,13 +53,22 @@ public class Main {
         pool.mostrarResultados();
     }
 
-    public static int[][] dividirMatriz(int[][] matriz, int ni, int nj){
-        int[][] nmatriz = new int[3][3];
-        for(int i=ni; i<3+ni; i++){
-            for(int j=nj; j<3+nj; j++){
-                nmatriz[i-ni][j-nj] = matriz[i][j];
+    public static ArrayList<int[][]> dividirMatriz(WritableRaster inputRaster, int ni, int nj){
+        ArrayList<int[][]> nmatriz = new ArrayList<int[][]>();
+        for (int k=0; k<inputRaster.getNumBands(); k++){
+            int[][] matrix = new int[3][3];
+            for(int i=-1; i<2; i++){
+                for(int j=-1; j<2; j++){
+                    try {
+                        matrix[i+1][j+1] = inputRaster.getSample(ni+i, nj+j, k);
+                    } catch (IndexOutOfBoundsException ex){
+                        matrix[i+1][j+1] = 0;
+                    }
+                }
             }
+            nmatriz.add(matrix);
         }
+
         return nmatriz;
     }
 }
