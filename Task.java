@@ -5,27 +5,38 @@ public class Task implements Runnable{
     ArrayList<double[][]> rangoPorCanal;
     int i;
     int j;
-    int valor = 0;
+
     WritableRaster inputRaster;
     WritableRaster outputRaster;
 
-    double[][] filtro = {{0,-1,0},{-1,5,-1},{0,-1,0}};
-    public Task(ArrayList<double[][]> rango, int i, int j, WritableRaster inRaster, WritableRaster outRaster){
+    double[][] sharpen = {{0,-1,0},{-1,5,-1},{0,-1,0}};
+    double[][] blur = {{0.1,0.1,0.1},{0.1,0.1,0.1},{0.1,0.1,0.1}};
+    double[][] sobelVertical = {{1,2,1},{0,0,0},{-1,-2,-1}};
+    double[][] sobelHorizontal = {{1,0,-1},{2,0,-2},{1,0,-1}};
+
+    double[][] filtro;
+    public Task(ArrayList<double[][]> rango, int i, int j, WritableRaster inRaster, WritableRaster outRaster, String filter){
         this.rangoPorCanal = rango;
         this.i = i;
         this.j = j;
         this.inputRaster = inRaster;
         this.outputRaster = outRaster;
+        this.filtro = setFiltro(filter);
     }
-    public ArrayList<double[][]> getRango(){
-        return this.rangoPorCanal;
+
+    private double[][] setFiltro(String filter){
+        switch(filter){
+            case "blur":
+                return blur;
+            case "sharpen":
+                return sharpen;
+            case "sobelvertical":
+                return sobelVertical;
+            default:
+                return sobelHorizontal;
+        }
     }
-    public int getI(){
-        return this.i;
-    }
-    public int getJ(){
-        return this.j;
-    }
+
     public double getValor(double valor){
         if (valor > 255){
             return 255;

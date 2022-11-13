@@ -1,8 +1,3 @@
-import java.util.ArrayList;
-
-/**
- * ThreadPool
- */
 public class ThreadPool {
 
     int cantidad;
