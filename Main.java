@@ -16,33 +16,19 @@ public class Main {
 
         int ancho = inputRaster.getWidth();
         int alto = inputRaster.getHeight();
-        int canales = inputRaster.getNumBands();
 
         WritableRaster outputRaster = inputRaster.createCompatibleWritableRaster(ancho, alto);
 
-        int cantTasks = (ancho - 2) * (alto - 2);
-
-        // raster2.setPixels(0 , 0 , ancho , alto ,
-        // new double[ ancho * alto * canales ]);
-        // BufferedImage bi_salida = new BufferedImage (
-        // bi.getColorModel() , raster2 , bi.isAlphaPremultiplied () , null);
-        // File outputfile = new File ("salida.jpg" );
-        // ImageIO.write(bi_salida, "jpg" , outputfile );
-        
-        Task[] tasks = new Task[(ancho - 2) * (alto - 2)];
-        int counter = 0;
-        for (int k = 0; k<canales; k++){
-            for(int i=0; i<3; i++){
-                for(int j=0; j<3; j++){ // el 3 es el (ancho - 2)
-                    tasks[counter] = new Task(dividirMatriz(inputRaster, i, j), i, j, inputRaster, outputRaster);
-                    counter++;
-                }
+        ArrayList<Task> tasks = new ArrayList<Task>();
+        for(int i=0; i<ancho-1; i++){
+            for(int j=0; j<alto-1; j++){
+                tasks.add(new Task(dividirMatriz(inputRaster, i, j), i, j, inputRaster, outputRaster));
             }
         }
 
-        Buffer buffer = new Buffer(8);
+        Buffer buffer = new Buffer(8); //PARAMETRIZAR
         WorkerCounter workerCounter = new WorkerCounter();
-        int threads = 4; // no se como hacer para pasar datos por linea de comandos
+        int threads = 4; //PARAMETRIZAR
         ThreadPool pool = new ThreadPool(threads, buffer, workerCounter);
         pool.iniciar();
         for (Task task : tasks){
@@ -50,13 +36,16 @@ public class Main {
         }
         pool.loadFinishTaks();
         workerCounter.terminarEjecucion();
-        pool.mostrarResultados();
+
+        BufferedImage bi_salida = new BufferedImage (bi.getColorModel() , outputRaster , bi.isAlphaPremultiplied () , null);
+        File outputfile = new File ("salida.jpg" );
+        ImageIO.write(bi_salida, "jpg" , outputfile );
     }
 
-    public static ArrayList<int[][]> dividirMatriz(WritableRaster inputRaster, int ni, int nj){
-        ArrayList<int[][]> nmatriz = new ArrayList<int[][]>();
+    public static ArrayList<double[][]> dividirMatriz(WritableRaster inputRaster, int ni, int nj){
+        ArrayList<double[][]> nmatriz = new ArrayList<double[][]>();
         for (int k=0; k<inputRaster.getNumBands(); k++){
-            int[][] matrix = new int[3][3];
+            double[][] matrix = new double[3][3];
             for(int i=-1; i<2; i++){
                 for(int j=-1; j<2; j++){
                     try {

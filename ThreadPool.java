@@ -34,27 +34,4 @@ public class ThreadPool {
             buffer.write(new PoisonPill(workerCounter));
         }
     }
-
-    public void mostrarResultados(){
-        int[][] resultado = new int[3][3];
-
-        for(FilterWorker worker: workers){
-            ArrayList<ArrayList<Integer>> procesosLeidos = worker.getProcesosLeidos();
-
-            for (int i=0; i < procesosLeidos.size(); i++){
-                Integer fila = procesosLeidos.get(i).get(1);
-                Integer columna = procesosLeidos.get(i).get(2);
-                int valueConvert = procesosLeidos.get(i).get(0);
-
-                resultado[fila][columna] = valueConvert;
-            }
-        }
-        for(int i=0; i<3; i++){
-            for(int j=0; j<3; j++){ // el 3 es el (ancho - 2)
-                System.out.println(resultado[i][j]);
-            }
-            System.out.println("Termino fila");
-        }
-        System.out.println("Termino resultado");
-    }
 }

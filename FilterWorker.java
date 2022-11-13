@@ -17,9 +17,9 @@ public class FilterWorker extends Thread {
                     t  = (Task) task;
                     t.run();
                     ArrayList<Integer> innerArraylist = new ArrayList<Integer>();
-                    innerArraylist.add(Integer.valueOf(t.getValor()));
-                    innerArraylist.add(Integer.valueOf(t.getI()));
-                    innerArraylist.add(Integer.valueOf(t.getJ()));
+                    //innerArraylist.add(Integer.valueOf(t.getValor()));
+                    //innerArraylist.add(Integer.valueOf(t.getI()));
+                    //innerArraylist.add(Integer.valueOf(t.getJ()));
    
                     procesosLeidos.add(innerArraylist);
                     counter ++;
