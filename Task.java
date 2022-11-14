@@ -13,6 +13,7 @@ public class Task implements Runnable{
     double[][] blur = {{0.1,0.1,0.1},{0.1,0.1,0.1},{0.1,0.1,0.1}};
     double[][] sobelVertical = {{1,2,1},{0,0,0},{-1,-2,-1}};
     double[][] sobelHorizontal = {{1,0,-1},{2,0,-2},{1,0,-1}};
+    double[][] bordes = {{0,1,0},{1,-4,1},{0,1,0}};
 
     double[][] filtro;
     public Task(ArrayList<double[][]> rango, int i, int j, WritableRaster inRaster, WritableRaster outRaster, String filter){
@@ -32,6 +33,8 @@ public class Task implements Runnable{
                 return sharpen;
             case "sobelvertical":
                 return sobelVertical;
+            case "bordes":
+                return bordes;
             default:
                 return sobelHorizontal;
         }

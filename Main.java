@@ -25,13 +25,13 @@ public class Main {
         int ancho = inputRaster.getWidth();
         int alto = inputRaster.getHeight();
 
-        WritableRaster outputRaster = inputRaster.createCompatibleWritableRaster(ancho, alto);
+        WritableRaster outputRaster = inputRaster.createCompatibleWritableRaster(ancho-2, alto-2);
 
         Timer timer = new Timer();
         timer.startRunning();
         ArrayList<Task> tasks = new ArrayList<Task>();
-        for(int i=0; i<ancho-1; i++){
-            for(int j=0; j<alto-1; j++){
+        for(int i=0; i<ancho-2; i++){
+            for(int j=0; j<alto-2; j++){
                 tasks.add(new Task(dividirMatriz(inputRaster, i, j), i, j, inputRaster, outputRaster, config.getFilterName()));
             }
         }

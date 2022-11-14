@@ -6,7 +6,7 @@ public class Config {
     private int bufferSize;
     private int filterWorkerAmount;
     private String filterName;
-    private String[] filterNames = {"blur", "sharpen", "sobelvertical", "sobelhorizontal"};
+    private String[] filterNames = {"blur", "sharpen", "sobelvertical", "sobelhorizontal", "bordes"};
 
     public String getInputFilename() {
         return inputFilename;
