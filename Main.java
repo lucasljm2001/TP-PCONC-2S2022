@@ -29,21 +29,19 @@ public class Main {
 
         Timer timer = new Timer();
         timer.startRunning();
-        ArrayList<Task> tasks = new ArrayList<Task>();
+
+        Buffer buffer = new Buffer(config.getBufferSize());
+        WorkerCounter workerCounter = new WorkerCounter();
+        int threads = config.getFilterWorkerAmount();
+        ThreadPool pool = new ThreadPool(threads, buffer, workerCounter);
+        pool.iniciar();
+
         for(int i=0; i<ancho-2; i++){
             for(int j=0; j<alto-2; j++){
-                tasks.add(new Task(dividirMatriz(inputRaster, i, j), i, j, inputRaster, outputRaster, config.getFilterName()));
+                pool.launch(new Task(dividirMatriz(inputRaster, i, j), i, j, inputRaster, outputRaster, config.getFilterName()));
             }
         }
 
-        Buffer buffer = new Buffer(config.getBufferSize()); 
-        WorkerCounter workerCounter = new WorkerCounter();
-        int threads = config.getFilterWorkerAmount(); 
-        ThreadPool pool = new ThreadPool(threads, buffer, workerCounter);
-        pool.iniciar();
-        for (Task task : tasks){
-            pool.launch(task);
-        }
         pool.loadFinishTaks();
         workerCounter.terminarEjecucion();
 

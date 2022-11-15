@@ -1,5 +1,4 @@
 public class ThreadPool {
-
     int cantidad;
     Buffer buffer;
     FilterWorker[] workers;

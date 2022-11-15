@@ -26,7 +26,7 @@ public class Buffer {
         notifyAll();
         return result ;
     }
-    private boolean isEmpty () { return begin == end ; }
-    private boolean isFull () { return next ( begin ) == end ; }
-    private int next ( int i) { return (i +1) %( N +1); }
+    private boolean isEmpty() { return begin == end ; }
+    private boolean isFull() { return next ( begin ) == end ; }
+    private int next(int i) { return (i +1) % (N +1); }
 }
