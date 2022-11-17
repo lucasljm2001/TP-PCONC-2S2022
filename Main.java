@@ -56,15 +56,20 @@ public class Main {
         ArrayList<double[][]> nmatriz = new ArrayList<double[][]>();
         for (int k=0; k<inputRaster.getNumBands(); k++){
             double[][] matrix = new double[3][3];
-            for(int i=-1; i<2; i++){
-                for(int j=-1; j<2; j++){
+            int despHor = -1;
+            for(int i=0; i<3; i++){
+                int despVer = -1;
+                for(int j=0; j<3; j++){
                     try {
-                        matrix[i+1][j+1] = inputRaster.getSample(ni+i, nj+j, k);
+                        matrix[i][j] = inputRaster.getSample(ni+despHor, nj+despVer, k);
                     } catch (IndexOutOfBoundsException ex){
-                        matrix[i+1][j+1] = 0;
+                        matrix[i][j] = 0;
                     }
+                    despVer++;
                 }
+                despHor++;
             }
+
             nmatriz.add(matrix);
         }
 
