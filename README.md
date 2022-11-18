@@ -1,29 +1,12 @@
 # TP-PCONC-2S2022
 
-# Cosas para consultar:
- - Conversión final de la imágen nos da imágen en negro.
- - Alcanza con ver el tiempo en ms para saber si está trabajando concurrentemente? O necesitamos algún otro mecanismo? (logs u otros?)
- - Main y su thread "principal", como funcionan? Como hacemos que main termine? ***
+# Introduccion 
+La consigna del trabajo pedía que desarrollaramos un programa que pudiera aplicar filtros de convolución a una imagen, para ello, se debía dividir la misma (a la que representamos como una matriz de n*m píxeles) y crear tareas que varios procesos concurrentes debían resolver. Esta tarea sería aplicar una transformación en el valor de la matriz de entrada (consiste en tomar los vértices vecinos a cada celda, multiplicarlos uno a uno por el valor en la celda correspondiente a la matriz de 3 x 3 que se usa de filtro, y sumarlos) y asignarlo como valor en las mismas coordenadas de una matriz salida, posteriormente, esa matriz se convierte en una imagen de salida.
 
-# Cosas para hacer: (flujo a grandes rasgos)
- - Crear buffer con espacio dado por el parámetro.
- - Levantar el thread pool para la cantidad de workers dados por parámetro.
- - Los workers deberían ir al buffer a tratar de tomar rangos dentro de la matriz para convertirlos (inicialmente el buffer estará vacío, por lo que se irán a dormir).
- - Worker counter ***
- - 
-
-# Notas: 
- - El worker deberá tomar una task (implementando la interfáz Runnable) para realizar el filtrado.
-
-- Crear una clase task que a la que se le asigne un pedazo de matriz con su correspondiente posicion
-En el main vamos haciendo la separacion de la matriz, a medida que la vamos separando se hace un launch de esa task (donde se escribe en el buffer la task)
-task = [
-     [[3,3,2],
-      [0,0,1],
-      [3,1,2]], 0, 0
-]
-buffer.write(task)
-
-- El thread pool cuando se inicializa lanza los workers que van a estar leyendo el buffer, cada worker va a realizar el "convertir"que le corresponde
-y va a guardar ese valor en una variable.
-- Luego cuando el workerCounter termine la ejecucion, se lee de cada worker el valor guardado despues de convertir y se asigna la nueva matriz
+# Inicio del programa
+Para iniciar el programa, se debe ejecutar el archivo Main.java, y suministrar los datos:
+- Ruta de archivo de entrada: debe ser una imagen en formato jpg o jpeg, y debe ser el path relativo al archivo Main.java
+- Ruta de archivo de salida: debe ser el destino deseado para el archivo de salida, con la extension deseada
+- Tamaño del buffer: se sugiere un numero entre 1 y 64
+- Cantidad de Threads: se sugiere un numero entre 1 y 16
+- Filtro a aplicar: los filtros posibles son: blur, sharpen, sobelVertical, sobelHorizontal y bordes
