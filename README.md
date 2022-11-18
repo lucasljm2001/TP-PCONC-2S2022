@@ -1,7 +1,7 @@
 # TP-PCONC-2S2022
 
 # Introduccion 
-La consigna del trabajo pedía que desarrollaramos un programa que pudiera aplicar filtros de convolución a una imagen, para ello, se debía dividir la misma (a la que representamos como una matriz de n*m píxeles) y crear tareas que varios procesos concurrentes debían resolver. Esta tarea sería aplicar una transformación en el valor de la matriz de entrada (consiste en tomar los vértices vecinos a cada celda, multiplicarlos uno a uno por el valor en la celda correspondiente a la matriz de 3 x 3 que se usa de filtro, y sumarlos) y asignarlo como valor en las mismas coordenadas de una matriz salida, posteriormente, esa matriz se convierte en una imagen de salida.
+La consigna del trabajo pedía que desarrollaramos un programa que pudiera aplicar filtros de convolución a una imagen, para ello, se debía dividir la misma (a la que representamos como una matriz de n*m píxeles) y crear tareas que varios procesos concurrentes debían resolver. Esta tarea sería aplicar una transformación en el valor de la matriz de entrada (consiste en tomar los vértices vecinos a cada celda, multiplicarlos uno a uno por el valor en la celda correspondiente a la matriz de 3 x 3 que se usa de filtro, y sumarlos) y asignarlo como valor en las mismas coordenadas de una matriz salida, posteriormente, esa matriz se convierte en una imagen de salida. Las imagenes a utilizar a modo de prueba se encuetran en la carpeta assets
 
 # Inicio del programa
 Para iniciar el programa, se debe ejecutar el archivo Main.java, y suministrar los datos:
