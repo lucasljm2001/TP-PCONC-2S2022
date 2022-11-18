@@ -10,3 +10,6 @@ Para iniciar el programa, se debe ejecutar el archivo Main.java, y suministrar l
 - Tamaño del buffer: se sugiere un numero entre 1 y 64
 - Cantidad de Threads: se sugiere un numero entre 1 y 16
 - Filtro a aplicar: los filtros posibles son: blur, sharpen, sobelVertical, sobelHorizontal y bordes
+
+# Finalizacion del programa
+Cuando la consola imprime los milisegundos demorados en procesar la imagen, la misma estara disponible, y el programa habra finalizado con exito
